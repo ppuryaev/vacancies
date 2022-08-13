@@ -6,7 +6,10 @@ from django.db import models
 class Vacancy(models.Model):
 
     title = models.CharField(max_length=100, verbose_name="Название вакансии")
-    specialty = models.ForeignKey('Specialty', on_delete=models.CASCADE, related_name="vacancies", verbose_name="Специализация")
+    specialty = models.ForeignKey('Specialty',
+                                  on_delete=models.CASCADE,
+                                  related_name="vacancies",
+                                  verbose_name="Специализация")
     company = models.ForeignKey('Company', on_delete=models.CASCADE, related_name="vacancies", verbose_name="Компания")
     skills = models.TextField(verbose_name='Навыки')
     description = models.TextField(verbose_name='Текст')
