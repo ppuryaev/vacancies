@@ -21,7 +21,7 @@ def insert_speciality(specialities):
     for speciality in specialities:
         Specialty.objects.create(
             code=speciality.get('code'),
-            title=speciality.get('title')
+            title=speciality.get('title'),
         )
     return
 
@@ -33,14 +33,15 @@ def insert_company(companies):
             location=company.get('location'),
             logo=company.get('logo'),
             description=company.get('description'),
-            employee_count=company.get('employee_count')
+            employee_count=company.get('employee_count'),
+            owner=company.get('owner'),
         )
     return
 
 
 def main():
-    insert_speciality(vacancy_data.specialties)
-    insert_company(vacancy_data.companies)
+    # insert_speciality(vacancy_data.specialties)
+    # insert_company(vacancy_data.companies)
     insert_jobs(vacancy_data.jobs)
 
 

@@ -26,7 +26,7 @@ companies = [
     {"id": "5", "title": "hirey ", "logo": "logo5.png", "employee_count": "21", "location": "Воронеж", "description": "Телекоммуникационные и платежные сервисы, которые помогают развиваться бизнесам во всем мире."},
     {"id": "6", "title": "swiftattack", "logo": "logo6.png", "employee_count": "79", "location": "Москва", "description": "Разработка сложных веб-сервисов и мобильных приложений"},
     {"id": "7", "title": "troller", "logo": "logo7.png", "employee_count": "230", "location": "Санкт-Петербург", "description": "Мобильное приложение, позволяющее примерить обувь и выбрать идеальную пару всего в 3 клика"},
-    {"id": "8", "title": "primalassault", "logo": "logo8.png","employee_count": "13", "location": "Москва", "description": "Реализуем проекты любой сложности в digital-сфере" }
+    {"id": "8", "title": "primalassault", "logo": "logo8.png","employee_count": "13", "location": "Москва", "description": "Реализуем проекты любой сложности в digital-сфере"}
 
 ]
 

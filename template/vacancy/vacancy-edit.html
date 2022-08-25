@@ -1,0 +1,127 @@
+{% extends 'vacancy/base.html' %}
+{% load vacancy_tags %}
+
+{% block head %}
+  <title>Вакансии компании | Джуманджи</title>
+  <style>
+    body {
+      background-color: #F6F2E6;
+    }
+  </style>
+{% endblock %}
+
+
+{% block content %}
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      <div class="col-12 col-lg-4">
+
+        <aside class="pt-3 pb-4 px-4 mb-5 card">
+          <h1 class="h4 pt-2 pb-2">Моя компания</h1>
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link" href="{% url 'mycompany_info' %}">1. Информация о&nbsp;компании</a>
+            <a class="nav-link active" href="{% url 'myvacancy_list' %}">2. Вакансии</a>
+          </div>
+        </aside>
+      </div>
+
+
+      <div class="col-12 col-lg-8">
+        <div class="card">
+          <div class="card-body px-4 pb-4 tab-content">
+            <!-- Tab -->
+            <section>
+              <h2 class="h4 pt-2 pb-3">Информация о вакансии</h2>
+
+            {% if update %}
+                <p class="alert alert-info" role="alert">
+                  Вакансия обновлена
+                </p>
+            {% endif %}
+              <form enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                  </div>
+                {% endif %}
+                <div class="row">
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="{{ form.title.id_for_label}}">Название вакансии</label>
+                      {{ form.title }}
+                      <div class="form-error">{{ form.title.errors }}</div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="{{ form.specialty.id_for_label}}">Специализация</label>
+                      {{ form.specialty }}
+                      <div class="form-error">{{ form.specialty.errors }}</div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="{{ form.salary_min.id_for_label}}">Зарплата от</label>
+                      {{ form.salary_min }}
+                      <div class="form-error">{{ form.salary_min.errors }}</div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2" for="{{ form.salary_max.id_for_label}}">Зарплата до</label>
+                      {{ form.salary_max }}
+                      <div class="form-error">{{ form.salary_max.errors }}</div>
+                      </div>
+                  </div>
+
+                </div>
+                <div class="form-group pb-2">
+                  <label class="mb-2 text-dark" for="{{ form.skills.id_for_label}}">Требуемые навыки</label>
+                  {{ form.skills }}
+                  <div class="form-error">{{ form.skills.errors }}</div>
+                </div>
+
+                <div class="form-group pb-2">
+                  <label class="mb-2 text-dark" for="{{ form.description.id_for_label}}">Описание вакансии</label>
+                  {{ form.description }}
+                  <div class="form-error">{{ form.description.errors }}</div>
+                </div>
+
+                <div class="form-group">
+                  <button class="btn btn-info" type="submit">Сохранить</button>
+                </div>
+              </form>
+              <!-- END Vacancy info -->
+              <!-- Applications -->
+              {% if feedback %}
+                {% if feedback.count == 0 %}
+                    <h2 class="h4 pt-2 pb-3">Нет откликов</h2>
+                {% else %}
+                    <h2 class="h4 pt-2 pb-3">{{ feedback.count|suffix_cnt_application }}</h2>
+                {% endif %}
+                {% for feed in feedback%}
+                <div class="card mt-3">
+                  <div class="card-body px-4">
+                    <p class="mb-1 font-weight-bold">{{ feed.written_username }}</p>
+                    <p class="mb-2"><a href="{{ 'tel:'|add:feed.written_phone }}" class="text-dark">{{ feed.written_phone }}</a></p>
+                    <p class="mb-1">{{ feed.written_cover_letter }}</p>
+                  </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+ {% endblock %}

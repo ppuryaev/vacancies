@@ -19,7 +19,15 @@ from django.contrib import admin
 from django.urls import path
 
 from vacancy.views import custom_handler404, custom_handler500
-from vacancy.views import main_view, vacancy_list, vacancy_cat_list, company_info, vacancy_info
+from vacancy.views import search
+from vacancy.views import myresume_letsstart, myresume_create, myresume_info
+from vacancy.views import main_view, vacancy_list, vacancy_cat_list, company_info, vacancy_send
+from vacancy.views import mycompany_letsstart, mycompany_create, mycompany_info
+from vacancy.views import myvacancy_list, myvacancy_blank_form, myvacancy_info
+from accounts.views import LoginUser, RegisterUser, logout_view
+
+from vacancy.views import VacancyInfo
+
 
 handler404 = custom_handler404
 handler500 = custom_handler500
@@ -31,5 +39,25 @@ urlpatterns = [
     path('vacancies/', vacancy_list, name='vacancy_list'),
     path('vacancies/cat/<slug:cat_slug>/', vacancy_cat_list, name='vacancy_cat_list'),
     path('companies/<int:company_id>', company_info, name='company_page'),
-    path('vacancies/<int:vacancy_id>', vacancy_info, name='vacancy_page'),
+    # path('vacancies/<int:vacancy_id>', vacancy_info, name='vacancy_page'),
+    path('vacancies/<pk>', VacancyInfo.as_view(), name='vacancy_page'),
+    path('vacancies/<int:pk>/send/', vacancy_send, name='vacancy_send'),
+    path('mycompany/letsstart/', mycompany_letsstart, name='mycompany_letsstart'),
+    path('mycompany/create/', mycompany_create, name='mycompany_create'),
+    path('mycompany/', mycompany_info, name='mycompany_info'),
+    path('mycompany/vacancies/', myvacancy_list, name='myvacancy_list'),
+    path('mycompany/vacancies/create/', myvacancy_blank_form, name='myvacancy_blank_form'),
+    path('mycompany/vacancies/<int:vacancy_id>', myvacancy_info, name='myvacancy_info'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('register/', RegisterUser.as_view(), name='register'),
+    path('logout/', logout_view, name='logout_view'),
+    path('myresume/letsstart', myresume_letsstart, name='myresume_letsstart'),
+    path('myresume/create/', myresume_create, name='myresume_create'),
+    path('myresume/', myresume_info, name='myresume_info'),
+    path('search/', search, name='search_page'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

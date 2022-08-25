@@ -1,0 +1,113 @@
+{% extends 'vacancy/base.html' %}
+
+{% block head %}
+  <title>Создать резюме | Джуманджи</title>
+  <style>
+    body {
+      background-color: #F6F2E6;
+    }
+  </style>
+{% endblock %}
+
+
+{% block content %}
+  <main class="container mt-3 pb-5">
+    <section class="col-12 col-lg-6 offset-lg-3 mt-5 card">
+      <div class="card-body px-3 pb-4">
+        <h1 class="h4 pt-2 pb-3">Мое резюме</h1>
+        {% if update %}
+                <p class="alert alert-info" role="alert">Ваше резюме обновлено!</p>
+        {% endif %}
+
+
+        <form enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+                  <div div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                  </div>
+          {% endif %}
+          <div class="row">
+
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="{{ form.name.id_for_label }}">Имя</label>
+                {{ form.name }}
+                 <div class="form-error">{{ form.name.errors }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="{{ form.surname.id_for_label }}">Фамилия</label>
+                {{ form.surname }}
+                 <div class="form-error">{{ form.surname.errors }}</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="{{ form.status.id_for_label }}">Готовность к работе</label>
+                {{ form.status }}
+                 <div class="form-error">{{ form.status.errors }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="{{ form.salary.id_for_label }}">Ожидаемое вознаграждение</label>
+                {{ form.salary }}
+                 <div class="form-error">{{ form.salary.errors }}</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="{{ form.specialty.id_for_label }}">Специализация</label>
+                {{ form.specialty }}
+                 <div class="form-error">{{ form.specialty.errors }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="{{ form.grade.id_for_label }}">Квалификация</label>
+                {{ form.grade }}
+                 <div class="form-error">{{ form.grade.errors }}</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group pb-2">
+            <label class="mb-2 text-dark" for="{{ form.education.id_for_label }}">Образование</label>
+            {{ form.education }}
+             <div class="form-error">{{ form.education.errors }}</div>
+          </div>
+
+          <div class="form-group pb-2">
+            <label class="mb-2 text-dark" for="{{ form.experience.id_for_label }}">Опыт работы</label>
+            {{ form.experience }}
+             <div class="form-error">{{ form.experience.errors }}</div>
+          </div>
+
+          <div class="form-group pb-3">
+            <label class="mb-2 text-dark" for="{{ form.portfolio.id_for_label }}">Ссылка на портфолио</label>
+            {{ form.portfolio }}
+             <div class="form-error">{{ form.portfolio.errors }}</div>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-info" value="Сохранить">
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+{% endblock %}

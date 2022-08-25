@@ -1,0 +1,80 @@
+{% extends 'vacancy/base.html' %}
+{% load vacancy_tags %}
+
+{% block head %}
+  <title>Вакансии компании | Джуманджи</title>
+  <style>
+    body {
+      background-color: #F6F2E6;
+    }
+  </style>
+{% endblock %}
+
+
+{% block content %}
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      <div class="col-12 col-lg-4">
+        <aside class="pt-3 pb-4 px-4 mb-5 card">
+          <h1 class="h4 pt-2 pb-2">Моя компания</h1>
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link" href="{% url 'mycompany_info' %}">1. Информация о&nbsp;компании</a>
+            <a class="nav-link active" href="{% url 'myvacancy_list' %}">2. Вакансии</a>
+          </div>
+        </aside>
+      </div>
+      <div class="col-12 col-lg-8">
+        <div class="card">
+          <div class="card-body px-4 pb-4">
+            <section class="tab-pane fade show active">
+              <div class="row">
+                <div class="col">
+                  <div class="" style="margin-bottom: 0px;">
+                    <h2 class="h4">Вакансии</h2>
+                  </div>
+
+                </div>
+                <div class="col-4">
+                  <div class="float-right mb-2">
+                  <a class="btn btn-info" href="{% url 'myvacancy_blank_form' %}">Добавить вакансию</a>
+                  </div>
+                </div>
+
+              </div>
+              {% if no_vacancies %}
+              <p class="alert alert-info" role="alert">
+                  У вас пока нет вакансий, но вы можете создать первую!
+                </p>
+              {% endif %}
+
+              {% for vacancy in vacancies %}
+              <div class="card mt-3">
+                <div class="card-body px-4">
+                  <div class="row align-items-center">
+                    <div class="col-6 col-lg-8">
+                      <a href="{% url 'vacancy_page' vacancy.id %}" class="mb-1">{{ vacancy.title }}</a>
+                      <p class="mb-1">
+                        <span class="mr-4">{{ vacancy.salary_min|human_number }}</span>
+                        {% if vacancy.applications.count == 0 %}
+                          <a href="" class="text-info">Нет откликов</a>
+                        {% else %}
+                          <a href="" class="text-info">{{ vacancy.applications.count|suffix_cnt_application }}</a>
+                        {% endif %}
+                      </p>
+                    </div>
+                    <div class="col-6 col-lg-4 text-right">
+                      <a href="{% url 'myvacancy_info' vacancy.id %}" class="btn btn-outline-info">Изменить</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

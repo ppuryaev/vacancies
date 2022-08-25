@@ -1,0 +1,65 @@
+{% extends 'vacancy/base.html' %}
+{% load vacancy_tags %}
+
+{% block head %}
+<title xmlns="http://www.w3.org/1999/html">Вакансии | Джуманджи</title>
+{% endblock %}
+
+{% block content %}
+
+  <main class="container mt-3">
+    <section>
+
+        <h1 class="h1 text-center mt-5 mb-4">Поиск вакансий</h1>
+
+        <div class="row">
+            <div class="col-8 col-md-8 col-lg-8 offset-lg-4 offset-md-2">
+            <form class="form-inline sm-form mr-auto mb-4" enctype="multipart/form-data" method="get">
+                <input class="form-control mr-sm-2" type="text" placeholder="Например: ios" aria-label="Search" name="searchquery">
+                <button class="btn btn-primary  my-0" type="submit">Найти вакансии</button>
+            </form>
+
+            </div>
+        </div>
+      {% if vacancies.count == 0 %}
+        <h3 class="text-center pt-1">По запросу "{{ request.GET.searchquery }}"
+            </br>
+            ничего не найдено
+        </h3>
+      {% else %}
+        {% if request.GET.searchquery %}
+            <h3 class="text-center pt-1">Вакансии по запросу "{{ request.GET.searchquery }}"</h3>
+        {% endif %}
+        <p class="text-center pt-1">Найдено {{ vacancies.count|suffix_cnt_vacancy }}</p>
+      {% endif %}
+
+
+      <div class="row mt-5">
+
+        <div class="col-12 col-lg-8 offset-lg-2 m-auto">
+          {% for vacancy in vacancies %}
+          <div class="card mb-4">
+            <div class="card-body px-4">
+              <div class="row">
+                <div class="col-12 col-md-8 col-lg-9">
+                  <h2 class="h2 pb-2">
+                    <a href="{% url 'vacancy_page' vacancy.id %}">{{ vacancy.title }}</a>
+                  </h2>
+                  <p class="mb-2">{{ vacancy.skills|make_list_make_join}}</p>
+                  <p>От {{ vacancy.salary_min|human_number }} до {{ vacancy.salary_max|human_number }} руб.</p>
+                  <p class="text-muted pt-1">{{ vacancy.published_at|date:"F, j" }}</p>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 d-flex align-items-end">
+                  <a href="{% url 'company_page' vacancy.company.id %}">
+                    <img src="{{ vacancy.company.logo.url }}" width="130" height="80" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
