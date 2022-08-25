@@ -29,7 +29,8 @@ ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
                  '89.108.83.12',
                  'pmpuryaev.ru',
-                 'www.pmpuryaev.ru',]
+                 'www.pmpuryaev.ru',
+                 ]
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'vacancy',
+    'accounts',
     'django.contrib.humanize',
     'crispy_forms',
 ]
