@@ -41,7 +41,7 @@
               <form enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 {% if form.non_field_errors %}
-                  <div div class="alert alert-danger" role="alert">
+                  <div class="alert alert-danger" role="alert">
                     {% for error in form.non_field_errors %}{{ error }}{% endfor %}
                   </div>
                 {% endif %}

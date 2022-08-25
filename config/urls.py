@@ -18,16 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from vacancy.views import custom_handler404, custom_handler500
-from vacancy.views import search
-from vacancy.views import myresume_letsstart, myresume_create, myresume_info
-from vacancy.views import main_view, vacancy_list, vacancy_cat_list, company_info, vacancy_send
-from vacancy.views import mycompany_letsstart, mycompany_create, mycompany_info
-from vacancy.views import myvacancy_list, myvacancy_blank_form, myvacancy_info
 from accounts.views import LoginUser, RegisterUser, logout_view
-
-from vacancy.views import VacancyInfo
-
+from vacancy.views.my_company import mycompany_letsstart, mycompany_create, mycompany_info
+from vacancy.views.my_cv import myresume_letsstart, myresume_create, myresume_info
+from vacancy.views.my_vacancy import myvacancy_list, myvacancy_blank_form, myvacancy_info
+from vacancy.views.public import VacancyInfo
+from vacancy.views.public import custom_handler404, custom_handler500
+from vacancy.views.public import main_view, vacancy_list, vacancy_cat_list, company_info, vacancy_send
+from vacancy.views.public import search
 
 handler404 = custom_handler404
 handler500 = custom_handler500
@@ -39,7 +37,6 @@ urlpatterns = [
     path('vacancies/', vacancy_list, name='vacancy_list'),
     path('vacancies/cat/<slug:cat_slug>/', vacancy_cat_list, name='vacancy_cat_list'),
     path('companies/<int:company_id>', company_info, name='company_page'),
-    # path('vacancies/<int:vacancy_id>', vacancy_info, name='vacancy_page'),
     path('vacancies/<pk>', VacancyInfo.as_view(), name='vacancy_page'),
     path('vacancies/<int:pk>/send/', vacancy_send, name='vacancy_send'),
     path('mycompany/letsstart/', mycompany_letsstart, name='mycompany_letsstart'),

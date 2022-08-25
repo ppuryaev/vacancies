@@ -20,8 +20,11 @@
             <p class="h5 font-weight-light">Войдите, чтобы управлять</p>
           </div>
 
+
           {% if form.non_field_errors %}
-          <div div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+            <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+            </div>
           {% endif %}
 
           <div class="mt-5 form-label-group">

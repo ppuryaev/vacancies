@@ -18,9 +18,12 @@
             <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
             <p class="h5 font-weight-light">Создайте аккаунт</p>
           </div>
-            {% if form.non_field_errors %}
-            <div div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
-            {% endif %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+              {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+            </div>
+          {% endif %}
 
             {% for label in form %}
               {% if label.id_for_label == 'inputLogin' %}
